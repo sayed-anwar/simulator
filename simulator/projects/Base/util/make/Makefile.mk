@@ -56,6 +56,7 @@ endif
 #===========================================================================================
 $(info - Including user configuration file.....)
 
+#included in the batch file
 #UserBuildConfigFile:= ./src/0_Common/BuildConfig.mk
 
 $(if  $(filter "$(wildcard $(UserBuildConfigFile))",""), \

@@ -5,7 +5,7 @@
 #==========================================================================================#
 
 
-LIB_EXTENSION				:= a
+LIB_EXTENSION				:= dll
 BIN_EXTENSION				:= exe
 
 #==================================================================================#
@@ -19,7 +19,6 @@ out_dir  					:= ./build
 DEP_DIR						:= $(out_dir)/dep
 OBJ_DIR						:= $(out_dir)/obj
 BIN_DIR						:= $(out_dir)/bin
-FLASHABLE_DIR				:= $(out_dir)/flashable
 
 
 #===========================================================================================#
@@ -37,7 +36,6 @@ TOOLCHAIN_BIN_DIR			:= $(subst \,/,$(strip $(TOOLCHAIN_BIN_DIR)))
 
 
 CC_PATH    					:= $(TOOLCHAIN_BIN_DIR)/g++.exe
-AR_PATH    					:= $(TOOLCHAIN_BIN_DIR)/g++.exe
 LD_PATH    					:= $(TOOLCHAIN_BIN_DIR)/g++.exe
 
 

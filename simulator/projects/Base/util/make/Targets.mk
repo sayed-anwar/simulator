@@ -33,13 +33,13 @@ $(foreach cmp,$(notdir $(CMP_SOURCE_DIRS_LIST)),$(eval $($(cmp)OBJFILES_C) $($(c
 # -T<linker-file>: passes linker script, the default linker script will be ignored. 
 # -Wl,--start-group <list> -Wl,--end-group: resolve cyclic references so that the order of libraries becomes irrelevant. 
 # $(DEP_DIR)/LinkedFiles.mk: list of files that has been linked last time 
-$(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION) : $(LD_FILE) $(SWOBJFILES_CPP) $(SWOBJFILES_C)  $(SWLIBFILES) $(DEP_DIR)/LinkedFiles.mk
+$(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION) : $(SWOBJFILES_CPP) $(SWOBJFILES_C)  $(SWLIBFILES) $(DEP_DIR)/LinkedFiles.mk
 	@$(CMD)echo "--------------------------------------------------"
 	@$(CMD)echo "-----                LINKING                 -----"
 	@$(CMD)echo "--------------------------------------------------"
-	@$(CMD)echo Generating elf file $(BIN_DIR)/$(BIN_NAME).elf.....
+	@$(CMD)echo Generating $(BIN_EXTENSION) file $(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION).....
 	@$(CMD)echo "LinkedFiles:=$(CurrentLinkedFiles) FileReadMarker" > $(DEP_DIR)/LinkedFiles.mk
-	$(DBG)$(LD) -o $(BIN_DIR)/$(BIN_NAME).exe $(SWOBJFILES_CPP) $(SWOBJFILES_C)    
+	$(DBG)$(LD) -o $(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION) $(SWOBJFILES_CPP) $(SWOBJFILES_C)    
 	@$(CMD)echo Generation done.
 	
 	

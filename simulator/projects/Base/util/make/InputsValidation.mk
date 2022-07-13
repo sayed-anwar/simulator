@@ -16,10 +16,6 @@ CMP_LIB_DIR 					:= $(patsubst %/,%,$(sort $(subst \,/,$(strip $(CMP_LIB_DIR))))
 SW_EXCLUDE_DIRS_LIST			:= $(patsubst %/,%,$(sort $(subst \,/,$(strip $(SW_EXCLUDE_DIRS_LIST)))))
 SW_EXCLUDE_FILES_LIST			:= $(sort $(subst \,/,$(strip $(SW_EXCLUDE_FILES_LIST))))        
 
-LD_FILE							:= $(subst \,/,$(strip $(LD_FILE)))
-
-
-
 LIB_EXTENSION					:= $(strip $(LIB_EXTENSION))
 BIN_EXTENSION					:= $(strip $(BIN_EXTENSION))
 
@@ -27,16 +23,11 @@ BIN_EXTENSION					:= $(strip $(BIN_EXTENSION))
 DEP_DIR							:= $(patsubst %/,%,$(subst \,/,$(strip $(DEP_DIR))))
 OBJ_DIR							:= $(patsubst %/,%,$(subst \,/,$(strip $(OBJ_DIR))))
 BIN_DIR							:= $(patsubst %/,%,$(subst \,/,$(strip $(BIN_DIR))))
-FLASHABLE_DIR					:= $(patsubst %/,%,$(subst \,/,$(strip $(FLASHABLE_DIR))))
 
 
 CC								:= $(subst \,/,$(strip $(CC_PATH)))
 LD								:= $(subst \,/,$(strip $(LD_PATH)))
 
-
-
-FLASHABLE_FILES_NAMES_LIST		:= $(sort $(strip $(FLASHABLE_FILES_NAMES_LIST)))
-BIN2F							:= $(subst \,/,$(strip $(BIN2FLASHABLE_LOADER_PATH)))
 
 #here we use \ not / 
 BIN2FLASHABLE_SCRIPT_PATH		:= $(subst /,\,$(strip $(BIN2FLASHABLE_SCRIPT_PATH)))
@@ -117,12 +108,6 @@ ignor := $(foreach dir,$(SW_EXCLUDE_DIRS_LIST),$(call DIR_EXIST,$(dir),SW_EXCLUD
 ignor := $(foreach f,$(SW_EXCLUDE_FILES_LIST),$(call FILE_EXIST,$(f),SW_EXCLUDE_FILES_LIST))
 
 
-#Checking variable LD_FILE(mandatory-not list-file)- FILE_EXIST is enough
-$(eval $(call NOT_EMPTY_CHECK,$(LD_FILE),LD_FILE))
-$(eval $(call NOT_LIST_CHECK,$(LD_FILE),LD_FILE))    
-ignor := $(call FILE_EXIST, $(LD_FILE),LD_FILE)
-
-
 #LIB_EXTENSION: Checking variable LIB_EXTENSION(mandatory-not list)
 $(eval $(call NOT_EMPTY_CHECK,$(LIB_EXTENSION),LIB_EXTENSION))
 $(eval $(call NOT_LIST_CHECK,$(LIB_EXTENSION),LIB_EXTENSION)) 
@@ -143,9 +128,6 @@ $(eval $(call NOT_LIST_CHECK,$(OBJ_DIR),OBJ_DIR))
 $(eval $(call NOT_EMPTY_CHECK,$(BIN_DIR),BIN_DIR))
 $(eval $(call NOT_LIST_CHECK,$(BIN_DIR),BIN_DIR)) 
 
-$(eval $(call NOT_EMPTY_CHECK,$(FLASHABLE_DIR),FLASHABLE_DIR))
-$(eval $(call NOT_LIST_CHECK,$(FLASHABLE_DIR),FLASHABLE_DIR))
-
 $(eval $(call NOT_LIST_CHECK,$(CMP_LIB_DIR),CMP_LIB_DIR))
 ignor := $(call DIR_EXIST,$(CMP_LIB_DIR),CMP_LIB_DIR)
 
@@ -158,31 +140,7 @@ ignor := $(call DIR_EXIST,$(TOOLCHAIN_BIN_DIR),TOOLCHAIN_BIN_DIR)
 ignor := $(call FILE_EXIST, $(CC),CC_PATH)
 ignor := $(call FILE_EXIST, $(LD),LD_PATH)
 
-      
 
-	
-                           
-
-#FLASHABLE_FILES_NAMES_LIST: no checks
-
-
-BIN2F: check(file- optional)
-ifneq ($(BIN2F),)
-   ignor := $(call FILE_EXIST, $(BIN2F),BIN2FLASHABLE_LOADER_PATH)
-endif 
-
-
-#BIN2FLASHABLE_SCRIPT_PATH: check(file- optional)
-ifneq ($(BIN2FLASHABLE_SCRIPT_PATH),)
-   ignor := $(call FILE_EXIST, $(BIN2FLASHABLE_SCRIPT_PATH),BIN2FLASHABLE_SCRIPT_PATH)
-   #if script exist, a loader must be present unless it's a batch file
-   ifneq ($(patsubst %.bat,.bat,$(BIN2FLASHABLE_SCRIPT_PATH)),.bat)
-       ignor := $(call FILE_EXIST, $(BIN2F),BIN2FLASHABLE_LOADER_PATH)
-   endif 
-endif 
-
-
-#BIN2FLASHABLE_OPTIONS_LIST: no checks
 
 
 #ASM, CC, and LD options will be checked by compiler driver
@@ -192,12 +150,11 @@ $(info - Checking working directories......)
 #Check first to save shell call
 ignor := $(strip $(filter "$(wildcard $(OBJ_DIR)/.)","") \
                  $(filter "$(wildcard $(DEP_DIR)/.)","") \
-                 $(filter "$(wildcard $(BIN_DIR)/.)","") \
-                 $(filter "$(wildcard $(FLASHABLE_DIR)/.)","")) 
+                 $(filter "$(wildcard $(BIN_DIR)/.)","")) 
                 
 ifneq ("$(ignor)"," ")
     $(info - Creating working directories......)
-    $(shell   $(CMD)mkdir -p $(OBJ_DIR) $(DEP_DIR) $(BIN_DIR) $(FLASHABLE_DIR))
+    $(shell   $(CMD)mkdir -p $(OBJ_DIR) $(DEP_DIR) $(BIN_DIR))
 endif
 
 
