@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw">
+
+  <!-- Twitter and Facebook OpenGraph Metadata-->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@code">
+
+  <meta name="description" content="Configure the C++ extension in Visual Studio Code to target Microsoft C++ on Windows.">
+<meta name="keywords" content="">
+<meta name="ms.prod" content="vs-code">
+<meta name="ms.TOCTitle" content="Microsoft C++ on Windows">
+<meta name="ms.ContentId" content="c8b779d6-79e2-49d6-acfc-430d7ac3a299">
+<meta name="ms.date" content="5/13/2022">
+<meta name="ms.topic" content="conceptual">
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://code.visualstudio.com/docs/cpp/config-msvc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configure Visual Studio Code for Microsoft C++">
+<meta property="og:description" content="Configure the C++ extension in Visual Studio Code to target Microsoft C++ on Windows.">
+
+<meta property="og:image" content="https://code.visualstudio.com/opengraphimg/opengraph-docs.png">
+
+
+
+  <link rel="shortcut icon" href="https://code.visualstudio.com/favicon.ico" sizes="128x128">
+  <link rel="apple-touch-icon" href="https://code.visualstudio.com/apple-touch-icon.png">
+
+  <title>Configure Visual Studio Code for Microsoft C++</title>
+
+  <link rel="stylesheet" href="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/bootstrap.min.css">
+  <link rel="stylesheet" href="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/style.css">
+
+  <script async="" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/analytics.js"></script><script src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/ms.jsll-3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var config = {
+      coreData: {
+        appId: "vscode"
+      },
+      instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+      webAnalyticsConfiguration: {
+        urlCollectQuery: true
+      }
+  
+    };
+    if (window.awa) {
+      awa.init(config);
+    }
+  </script>
+  
+  <link rel="dns-prefetch" href="https://target.microsoft.com/">
+  <link rel="dns-prefetch" href="https://microsoftmscompoc.tt.omtrdc.net/">
+  <script>
+  var at_property = 'a7e3965e-a530-9aab-41f3-2145f10bc083';
+  </script>
+  <script src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/at-config.js" type="text/javascript"></script>
+  <script src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/at.js" type="text/javascript"></script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  </script>  
+  <link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="https://code.visualstudio.com/feed.xml">
+</head>
+
+<body class="win">
+  <!-- EU Cookie Compliance JS -->
+  <script src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/wcp-consent.js"></script>
+
+  <div id="main">
+          <div class="navbar-fixed-container">
+              <div class="navbar navbar-inverse navbar-fixed-top ">
+                  <div id="cookie-banner"></div>        <nav role="navigation" aria-label="Top Level">
+                      <div class="container">
+                          <div class="nav navbar-header">
+                              <a role="button" id="skip-to-content" class="link-button" href="#main-content">Skip to content<i>&nbsp;</i><span class="glyphicon glyphicon-menu-down"></span></a>
+                              <a class="navbar-brand" href="https://code.visualstudio.com/">Visual Studio Code</a>
+                              <div class="tabloopElement" tabindex="0" style="display: none;"></div><button type="button" class="navbar-toggle" role="navigation" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle Navigation Menu">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                          </div>
+                          <div class="navbar-collapse collapse" role="navigation" style="max-height: min(60vh, 340px);">
+                              <ul class="nav navbar-nav navbar-left">
+                                  <li class="active"><a id="nav-docs" href="https://code.visualstudio.com/docs">Docs</a></li>
+                                  <li><a id="nav-updates" href="https://code.visualstudio.com/updates">Updates</a></li>
+                                  <li><a id="nav-blogs" href="https://code.visualstudio.com/blogs">Blog</a></li>
+                                  <li><a id="nav-extend" href="https://code.visualstudio.com/api">API</a></li>
+                                  <li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" id="nav-extensions">Extensions</a></li>
+                                  <li><a id="nav-faqs" href="https://code.visualstudio.com/docs/supporting/faq">FAQ</a></li>
+                                  <li><a id="nav-learn" href="https://code.visualstudio.com/learn">Learn</a></li>
+                                  <li class="search visible-xs visible-sm"><a href="https://code.visualstudio.com/Search">Search</a></li>
+                              </ul>
+          
+                              <ul class="nav navbar-nav navbar-right" role="presentation">
+                                  <!-- Floating search icon -->
+                                  <li>
+                                      <a href="https://code.visualstudio.com/Search" title="Search" class="btn search-btn" id="nav-search">
+                                          <img class="search-icon" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/search.svg" alt="Search" width="16px" height="16px">
+                                          <img class="search-icon-inverted" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/search_dark.svg" alt="Search" width="16px" height="16px">
+                                      </a>
+                                  </li>
+                                  <!-- Actual search icon -->
+                                  <li class="search" role="presentation">
+                                      <form class="nav-search search-form" role="search" aria-label="Search">
+                                          <div class="input-group" role="presentation">
+                                              <input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-label="Search text">
+                                              <span class="input-group-btn">
+                                                  <button tabindex="0" class="btn" type="submit" aria-label="Search">
+                                                          <img class="search-icon" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/search.svg" alt="Search" width="16px" height="16px">
+                                                          <img class="search-icon-inverted" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/search_dark.svg" alt="Search" width="16px" height="16px">
+                                                  </button>
+                                              </span>
+                                          </div>
+                                      </form>                        </li>
+                                  <!-- this was hiden in the home and download page, keeping it for now -->
+                                  <li><a class="link-button" href="https://code.visualstudio.com/Download" id="nav-download">
+                                      <img class="download-icon" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/download.svg" alt="Download VS Code" width="16px" height="16px">
+                                      <img class="download-icon-inverted" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/download-black.svg" alt="Download VS Code" width="16px" height="16px">
+                                      <span>Download</span>
+                                  </a><div class="tabloopElement" tabindex="0" style="display: none;"></div></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+          </div>          <div class="updates-banner  ">
+              <div class="container">
+                  <p class="message"><a href="https://code.visualstudio.com/updates" id="banner-link-updates">Version 1.69</a> is now available! Read about the new features and fixes from June.</p> 
+              </div>
+              <div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+          </div>      <div role="main" id="main-content">
+        <script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+
+    function pushCodingPackEvent(language, os) {
+        let id = `${language}-${os}-coding-pack`;
+        var analytics = window.vscodeAnalytics;
+
+        analytics && analytics.event(
+            'click',
+            'download',
+            id,
+        );
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <div class="col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+            	<ul class="nav" id="main-nav">
+            		<li>
+            			<a class="docs-home" href="https://code.visualstudio.com/docs">Overview</a>
+            		</li>
+            		
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#setup-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Setup</a>
+            					<ul id="setup-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/setup/setup-overview">Overview</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/setup/linux">Linux</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/setup/mac">macOS</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/setup/windows">Windows</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/setup/raspberry-pi">Raspberry Pi</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/setup/network">Network</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/setup/additional-components">Additional Components</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/setup/enterprise">Enterprise</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/setup/uninstall">Uninstall</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#getstarted-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Get Started</a>
+            					<ul id="getstarted-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/getstarted/introvideos">Intro Videos</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/getstarted/tips-and-tricks">Tips and Tricks</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/getstarted/userinterface">User Interface</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/getstarted/themes">Themes</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/getstarted/settings">Settings</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/getstarted/keybindings">Key Bindings</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/getstarted/locales">Display Language</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/getstarted/telemetry">Telemetry</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#editor-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">User Guide</a>
+            					<ul id="editor-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/codebasics">Basic Editing</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/extension-marketplace">Extension Marketplace</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/intellisense">IntelliSense</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/editingevolved">Code Navigation</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/refactoring">Refactoring</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/debugging">Debugging</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/versioncontrol">Version Control</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/github">Working with GitHub</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/vscode-web">VS Code for the Web</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/integrated-terminal">Integrated Terminal</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/terminal-shell-integration">Terminal Shell Integration</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/tasks">Tasks</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/settings-sync">Settings Sync</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets">Snippets</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/emmet">Emmet</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/command-line">Command Line</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/workspace-trust">Workspace Trust</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/multi-root-workspaces">Multi-root Workspaces</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/editor/accessibility">Accessibility</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#languages-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Languages</a>
+            					<ul id="languages-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/overview">Overview</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/javascript">JavaScript</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/json">JSON</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/html">HTML</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/css">CSS, SCSS and Less</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/typescript">TypeScript</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/markdown">Markdown</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/powershell">PowerShell</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/cpp">C++</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/java">Java</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/php">PHP</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/python">Python</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/julia">Julia</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/r">R</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/rust">Rust</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/go">Go</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/tsql">T-SQL</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/csharp">C#</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/languages/dotnet">.NET</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#nodejs-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Node.js / JavaScript</a>
+            					<ul id="nodejs-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/working-with-javascript">Working with JavaScript</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/nodejs-tutorial">Node.js Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/nodejs-debugging">Node.js Debugging</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/nodejs-deployment">Node.js Deployment</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/browser-debugging">Browser Debugging</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/angular-tutorial">Angular Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/reactjs-tutorial">React Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/vuejs-tutorial">Vue Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/emberjs-tutorial">Ember Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/debugging-recipes">Debugging Recipes</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/nodejs/extensions">Extensions</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#typescript-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">TypeScript</a>
+            					<ul id="typescript-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/typescript/typescript-tutorial">Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/typescript/typescript-compiling">Compiling</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/typescript/typescript-editing">Editing</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/typescript/typescript-refactoring">Refactoring</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/typescript/typescript-debugging">Debugging</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#python-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Python</a>
+            					<ul id="python-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/python-tutorial">Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/editing">Editing Code</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/linting">Linting</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/debugging">Debugging</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/environments">Environments</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/testing">Testing</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/data-science">Data Science</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/jupyter-support-py">Python Interactive</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/tutorial-django">Django Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/tutorial-flask">Flask Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/tutorial-create-containers">Create containers</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/python-on-azure">Python on Azure</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/python/settings-reference">Settings Reference</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#java-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Java</a>
+            					<ul id="java-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-tutorial">Getting Started</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-editing">Navigate and Edit</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-refactoring">Refactoring</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-linting">Formatting and Linting</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-project">Project Management</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-build">Build Tools</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-debugging">Run and Debug</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-testing">Testing</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-spring-boot">Spring Boot</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-tomcat-jetty">Application Servers</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-on-azure">Java on Azure</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-gui">GUI Applications</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/extensions">Extensions</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/java/java-faq">FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel active expanded">
+            					<a class="area" role="button" href="#cpp-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="true">C++</a>
+            					<ul id="cpp-articles" class="collapse in" aria-expanded="true">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/introvideos-cpp">Intro Videos</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/config-linux">GCC on Linux</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/config-mingw">GCC on Windows</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/config-wsl">GCC on Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/config-clang-mac">Clang on macOS</a>
+            						</li>
+            					
+            						<li class="active">
+            							<a href="https://code.visualstudio.com/docs/cpp/config-msvc" aria-label="Current Page: Microsoft C++ on Windows">Microsoft C++ on Windows</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/build-with-cmake">Build with CMake</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/cmake-linux">CMake Tools on Linux</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/cpp-ide">Editing</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/cpp-debug">Debugging</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/launch-json-reference">Configure debugging</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/customize-default-settings-cpp">Settings</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/configure-intellisense-crosscompilation">Configure IntelliSense for cross-compiling</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/cpp/faq-cpp">FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#containers-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Containers</a>
+            					<ul id="containers-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/overview">Overview</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/quickstart-node">Node.js</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/quickstart-python">Python</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/quickstart-aspnet-core">ASP.NET Core</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/debug-common">Debug</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/docker-compose">Docker Compose</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/quickstart-container-registries">Registries</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/app-service">Deploy to Azure</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/choosing-dev-environment">Choose a dev environment</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/reference">Customize</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/bridge-to-kubernetes">Develop with Kubernetes</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/containers/troubleshooting">Tips and Tricks</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#datascience-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Data Science</a>
+            					<ul id="datascience-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/datascience/overview">Overview</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">Jupyter Notebooks</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/datascience/data-science-tutorial">Data Science Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/datascience/python-interactive">Python Interactive</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/datascience/pytorch-support">PyTorch Support</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/datascience/azure-machine-learning">Azure Machine Learning</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#azure-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Azure</a>
+            					<ul id="azure-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/azure/extensions">Extensions</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/azure/deployment">Deployment</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/azure/remote-debugging">Remote Debugging for Node.js</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/azure/docker">Docker</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/azure/mongodb">MongoDB</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/azure/kubernetes">Kubernetes</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/azure/aksextensions">Azure Kubernetes Service</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            				<li class="panel collapsed">
+            					<a class="area" role="button" href="#remote-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Remote</a>
+            					<ul id="remote-articles" class="collapse " aria-expanded="false">
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/remote-overview">Overview</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/ssh">SSH</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/containers">Containers</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/wsl">Windows Subsystem for Linux</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/codespaces">GitHub Codespaces</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/vscode-server">VS Code Server</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/ssh-tutorial">SSH Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/containers-tutorial">Containers Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/wsl-tutorial">WSL Tutorial</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/attach-container">Attach to Container</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/create-dev-container">Create a Dev Container</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/containers-advanced">Advanced Containers</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/devcontainer-cli">devcontainer CLI</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/devcontainerjson-reference">devcontainer.json</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/troubleshooting">Tips and Tricks</a>
+            						</li>
+            					
+            						<li>
+            							<a href="https://code.visualstudio.com/docs/remote/faq">FAQ</a>
+            						</li>
+            					
+            					</ul>
+            				</li>
+            			
+            		
+            			
+            		
+            	</ul>
+            </nav>
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+            	<h4>Topics</h4>
+            	<select id="small-nav-dropdown" aria-label="topics">
+            		<option value="/docs">Overview</option>
+            		
+            			
+            		
+            			
+            				<optgroup label="Setup">
+            				
+            					<option value="/docs/setup/setup-overview">Overview</option>
+            				
+            					<option value="/docs/setup/linux">Linux</option>
+            				
+            					<option value="/docs/setup/mac">macOS</option>
+            				
+            					<option value="/docs/setup/windows">Windows</option>
+            				
+            					<option value="/docs/setup/raspberry-pi">Raspberry Pi</option>
+            				
+            					<option value="/docs/setup/network">Network</option>
+            				
+            					<option value="/docs/setup/additional-components">Additional Components</option>
+            				
+            					<option value="/docs/setup/enterprise">Enterprise</option>
+            				
+            					<option value="/docs/setup/uninstall">Uninstall</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Get Started">
+            				
+            					<option value="/docs/getstarted/introvideos">Intro Videos</option>
+            				
+            					<option value="/docs/getstarted/tips-and-tricks">Tips and Tricks</option>
+            				
+            					<option value="/docs/getstarted/userinterface">User Interface</option>
+            				
+            					<option value="/docs/getstarted/themes">Themes</option>
+            				
+            					<option value="/docs/getstarted/settings">Settings</option>
+            				
+            					<option value="/docs/getstarted/keybindings">Key Bindings</option>
+            				
+            					<option value="/docs/getstarted/locales">Display Language</option>
+            				
+            					<option value="/docs/getstarted/telemetry">Telemetry</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="User Guide">
+            				
+            					<option value="/docs/editor/codebasics">Basic Editing</option>
+            				
+            					<option value="/docs/editor/extension-marketplace">Extension Marketplace</option>
+            				
+            					<option value="/docs/editor/intellisense">IntelliSense</option>
+            				
+            					<option value="/docs/editor/editingevolved">Code Navigation</option>
+            				
+            					<option value="/docs/editor/refactoring">Refactoring</option>
+            				
+            					<option value="/docs/editor/debugging">Debugging</option>
+            				
+            					<option value="/docs/editor/versioncontrol">Version Control</option>
+            				
+            					<option value="/docs/editor/github">Working with GitHub</option>
+            				
+            					<option value="/docs/editor/vscode-web">VS Code for the Web</option>
+            				
+            					<option value="/docs/editor/integrated-terminal">Integrated Terminal</option>
+            				
+            					<option value="/docs/editor/terminal-shell-integration">Terminal Shell Integration</option>
+            				
+            					<option value="/docs/editor/tasks">Tasks</option>
+            				
+            					<option value="/docs/editor/settings-sync">Settings Sync</option>
+            				
+            					<option value="/docs/editor/userdefinedsnippets">Snippets</option>
+            				
+            					<option value="/docs/editor/emmet">Emmet</option>
+            				
+            					<option value="/docs/editor/command-line">Command Line</option>
+            				
+            					<option value="/docs/editor/workspace-trust">Workspace Trust</option>
+            				
+            					<option value="/docs/editor/multi-root-workspaces">Multi-root Workspaces</option>
+            				
+            					<option value="/docs/editor/accessibility">Accessibility</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Languages">
+            				
+            					<option value="/docs/languages/overview">Overview</option>
+            				
+            					<option value="/docs/languages/javascript">JavaScript</option>
+            				
+            					<option value="/docs/languages/json">JSON</option>
+            				
+            					<option value="/docs/languages/html">HTML</option>
+            				
+            					<option value="/docs/languages/css">CSS, SCSS and Less</option>
+            				
+            					<option value="/docs/languages/typescript">TypeScript</option>
+            				
+            					<option value="/docs/languages/markdown">Markdown</option>
+            				
+            					<option value="/docs/languages/powershell">PowerShell</option>
+            				
+            					<option value="/docs/languages/cpp">C++</option>
+            				
+            					<option value="/docs/languages/java">Java</option>
+            				
+            					<option value="/docs/languages/php">PHP</option>
+            				
+            					<option value="/docs/languages/python">Python</option>
+            				
+            					<option value="/docs/languages/julia">Julia</option>
+            				
+            					<option value="/docs/languages/r">R</option>
+            				
+            					<option value="/docs/languages/rust">Rust</option>
+            				
+            					<option value="/docs/languages/go">Go</option>
+            				
+            					<option value="/docs/languages/tsql">T-SQL</option>
+            				
+            					<option value="/docs/languages/csharp">C#</option>
+            				
+            					<option value="/docs/languages/dotnet">.NET</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Node.js / JavaScript">
+            				
+            					<option value="/docs/nodejs/working-with-javascript">Working with JavaScript</option>
+            				
+            					<option value="/docs/nodejs/nodejs-tutorial">Node.js Tutorial</option>
+            				
+            					<option value="/docs/nodejs/nodejs-debugging">Node.js Debugging</option>
+            				
+            					<option value="/docs/nodejs/nodejs-deployment">Node.js Deployment</option>
+            				
+            					<option value="/docs/nodejs/browser-debugging">Browser Debugging</option>
+            				
+            					<option value="/docs/nodejs/angular-tutorial">Angular Tutorial</option>
+            				
+            					<option value="/docs/nodejs/reactjs-tutorial">React Tutorial</option>
+            				
+            					<option value="/docs/nodejs/vuejs-tutorial">Vue Tutorial</option>
+            				
+            					<option value="/docs/nodejs/emberjs-tutorial">Ember Tutorial</option>
+            				
+            					<option value="/docs/nodejs/debugging-recipes">Debugging Recipes</option>
+            				
+            					<option value="/docs/nodejs/extensions">Extensions</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="TypeScript">
+            				
+            					<option value="/docs/typescript/typescript-tutorial">Tutorial</option>
+            				
+            					<option value="/docs/typescript/typescript-compiling">Compiling</option>
+            				
+            					<option value="/docs/typescript/typescript-editing">Editing</option>
+            				
+            					<option value="/docs/typescript/typescript-refactoring">Refactoring</option>
+            				
+            					<option value="/docs/typescript/typescript-debugging">Debugging</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Python">
+            				
+            					<option value="/docs/python/python-tutorial">Tutorial</option>
+            				
+            					<option value="/docs/python/editing">Editing Code</option>
+            				
+            					<option value="/docs/python/linting">Linting</option>
+            				
+            					<option value="/docs/python/debugging">Debugging</option>
+            				
+            					<option value="/docs/python/environments">Environments</option>
+            				
+            					<option value="/docs/python/testing">Testing</option>
+            				
+            					<option value="/docs/python/data-science">Data Science</option>
+            				
+            					<option value="/docs/python/jupyter-support-py">Python Interactive</option>
+            				
+            					<option value="/docs/python/tutorial-django">Django Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-flask">Flask Tutorial</option>
+            				
+            					<option value="/docs/python/tutorial-create-containers">Create containers</option>
+            				
+            					<option value="/docs/python/python-on-azure">Python on Azure</option>
+            				
+            					<option value="/docs/python/settings-reference">Settings Reference</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Java">
+            				
+            					<option value="/docs/java/java-tutorial">Getting Started</option>
+            				
+            					<option value="/docs/java/java-editing">Navigate and Edit</option>
+            				
+            					<option value="/docs/java/java-refactoring">Refactoring</option>
+            				
+            					<option value="/docs/java/java-linting">Formatting and Linting</option>
+            				
+            					<option value="/docs/java/java-project">Project Management</option>
+            				
+            					<option value="/docs/java/java-build">Build Tools</option>
+            				
+            					<option value="/docs/java/java-debugging">Run and Debug</option>
+            				
+            					<option value="/docs/java/java-testing">Testing</option>
+            				
+            					<option value="/docs/java/java-spring-boot">Spring Boot</option>
+            				
+            					<option value="/docs/java/java-tomcat-jetty">Application Servers</option>
+            				
+            					<option value="/docs/java/java-on-azure">Java on Azure</option>
+            				
+            					<option value="/docs/java/java-gui">GUI Applications</option>
+            				
+            					<option value="/docs/java/extensions">Extensions</option>
+            				
+            					<option value="/docs/java/java-faq">FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="C++">
+            				
+            					<option value="/docs/cpp/introvideos-cpp">Intro Videos</option>
+            				
+            					<option value="/docs/cpp/config-linux">GCC on Linux</option>
+            				
+            					<option value="/docs/cpp/config-mingw">GCC on Windows</option>
+            				
+            					<option value="/docs/cpp/config-wsl">GCC on Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/cpp/config-clang-mac">Clang on macOS</option>
+            				
+            					<option value="/docs/cpp/config-msvc" selected="selected">Microsoft C++ on Windows</option>
+            				
+            					<option value="/docs/cpp/build-with-cmake">Build with CMake</option>
+            				
+            					<option value="/docs/cpp/cmake-linux">CMake Tools on Linux</option>
+            				
+            					<option value="/docs/cpp/cpp-ide">Editing</option>
+            				
+            					<option value="/docs/cpp/cpp-debug">Debugging</option>
+            				
+            					<option value="/docs/cpp/launch-json-reference">Configure debugging</option>
+            				
+            					<option value="/docs/cpp/customize-default-settings-cpp">Settings</option>
+            				
+            					<option value="/docs/cpp/configure-intellisense-crosscompilation">Configure IntelliSense for cross-compiling</option>
+            				
+            					<option value="/docs/cpp/faq-cpp">FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Containers">
+            				
+            					<option value="/docs/containers/overview">Overview</option>
+            				
+            					<option value="/docs/containers/quickstart-node">Node.js</option>
+            				
+            					<option value="/docs/containers/quickstart-python">Python</option>
+            				
+            					<option value="/docs/containers/quickstart-aspnet-core">ASP.NET Core</option>
+            				
+            					<option value="/docs/containers/debug-common">Debug</option>
+            				
+            					<option value="/docs/containers/docker-compose">Docker Compose</option>
+            				
+            					<option value="/docs/containers/quickstart-container-registries">Registries</option>
+            				
+            					<option value="/docs/containers/app-service">Deploy to Azure</option>
+            				
+            					<option value="/docs/containers/choosing-dev-environment">Choose a dev environment</option>
+            				
+            					<option value="/docs/containers/reference">Customize</option>
+            				
+            					<option value="/docs/containers/bridge-to-kubernetes">Develop with Kubernetes</option>
+            				
+            					<option value="/docs/containers/troubleshooting">Tips and Tricks</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Data Science">
+            				
+            					<option value="/docs/datascience/overview">Overview</option>
+            				
+            					<option value="/docs/datascience/jupyter-notebooks">Jupyter Notebooks</option>
+            				
+            					<option value="/docs/datascience/data-science-tutorial">Data Science Tutorial</option>
+            				
+            					<option value="/docs/datascience/python-interactive">Python Interactive</option>
+            				
+            					<option value="/docs/datascience/pytorch-support">PyTorch Support</option>
+            				
+            					<option value="/docs/datascience/azure-machine-learning">Azure Machine Learning</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Azure">
+            				
+            					<option value="/docs/azure/extensions">Extensions</option>
+            				
+            					<option value="/docs/azure/deployment">Deployment</option>
+            				
+            					<option value="/docs/azure/remote-debugging">Remote Debugging for Node.js</option>
+            				
+            					<option value="/docs/azure/docker">Docker</option>
+            				
+            					<option value="/docs/azure/mongodb">MongoDB</option>
+            				
+            					<option value="/docs/azure/kubernetes">Kubernetes</option>
+            				
+            					<option value="/docs/azure/aksextensions">Azure Kubernetes Service</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            				<optgroup label="Remote">
+            				
+            					<option value="/docs/remote/remote-overview">Overview</option>
+            				
+            					<option value="/docs/remote/ssh">SSH</option>
+            				
+            					<option value="/docs/remote/containers">Containers</option>
+            				
+            					<option value="/docs/remote/wsl">Windows Subsystem for Linux</option>
+            				
+            					<option value="/docs/remote/codespaces">GitHub Codespaces</option>
+            				
+            					<option value="/docs/remote/vscode-server">VS Code Server</option>
+            				
+            					<option value="/docs/remote/ssh-tutorial">SSH Tutorial</option>
+            				
+            					<option value="/docs/remote/containers-tutorial">Containers Tutorial</option>
+            				
+            					<option value="/docs/remote/wsl-tutorial">WSL Tutorial</option>
+            				
+            					<option value="/docs/remote/attach-container">Attach to Container</option>
+            				
+            					<option value="/docs/remote/create-dev-container">Create a Dev Container</option>
+            				
+            					<option value="/docs/remote/containers-advanced">Advanced Containers</option>
+            				
+            					<option value="/docs/remote/devcontainer-cli">devcontainer CLI</option>
+            				
+            					<option value="/docs/remote/devcontainerjson-reference">devcontainer.json</option>
+            				
+            					<option value="/docs/remote/troubleshooting">Tips and Tricks</option>
+            				
+            					<option value="/docs/remote/faq">FAQ</option>
+            				
+            				</optgroup>
+            			
+            		
+            			
+            		
+            	</select>
+            </nav>        </div>
+        <div class="col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/cpp/config-msvc.md" tabindex="-1">
+                    <button type="button" class="btn btn-default" role="presentation" title="Edit this document in vscode.dev"><span class="glyphicon glyphicon-pencil"></span><i>&nbsp;</i><span class="hidden-xs">Edit</span></button>
+                </a>
+            </div>
+            <h1>Configure VS Code for Microsoft C++</h1>
+<p>In this tutorial, you configure Visual Studio Code to use the Microsoft Visual C++ compiler and debugger on Windows.</p>
+<p>After configuring VS Code, you will compile and debug a simple Hello 
+World program in VS Code. This tutorial does not teach you details about
+ the Microsoft C++ toolset or the C++ language. For those subjects, 
+there are many good resources available on the Web.</p>
+<p>If you have any problems, feel free to file an issue for this tutorial in the <a href="https://github.com/microsoft/vscode-docs/issues" class="external-link" target="_blank">VS Code documentation repository</a>.</p>
+<h2 id="_prerequisites" data-needslink="_prerequisites">Prerequisites<a class="hash-link transparent" href="#_prerequisites" aria-label="Prerequisites">#</a></h2>
+<p>To successfully complete this tutorial, you must do the following:</p>
+<ol>
+<li>
+<p>Install <a href="https://code.visualstudio.com/download">Visual Studio Code</a>.</p>
+</li>
+<li>
+<p>Install the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools" class="external-link" target="_blank">C/C++ extension for VS Code</a>. You can install the C/C++ extension by searching for 'c++' in the Extensions view (<span class="dynamic-keybinding keybinding win" data-commandid="workbench.view.extensions" data-osx="⇧⌘X" data-win="Ctrl+Shift+X" data-linux="Ctrl+Shift+X" title="macOS: ⇧⌘X, Linux: Ctrl+Shift+X">Ctrl+Shift+X</span>).</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/cpp-extension.png" alt="C/C++ extension" loading="lazy"></p>
+</li>
+<li>
+<p>Install the Microsoft Visual C++ (MSVC) compiler toolset.</p>
+<p>If you have a recent version of Visual Studio, open the Visual Studio
+ Installer from the Windows Start menu and verify that the C++ workload 
+is checked. If it's not installed, then check the box and select the <strong>Modify</strong> button in the installer.</p>
+<p>You can also install the <strong>Desktop development with C++</strong> workload without a full Visual Studio IDE installation. From the Visual Studio <a href="https://visualstudio.microsoft.com/downloads#other" class="external-link" target="_blank">Downloads</a> page, scroll down until you see <strong>Tools for Visual Studio 2022</strong> under the <strong>All Downloads</strong> section and select the download for <strong>Build Tools for Visual Studio 2022</strong>.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/build-tools-for-vs.png" alt="Build Tools for Visual Studio download" loading="lazy"></p>
+<p>This will launch the Visual Studio Installer, which will bring up a 
+dialog showing the available Visual Studio Build Tools workloads. Check 
+the <strong>Desktop development with C++</strong> workload and select <strong>Install</strong>.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/desktop_development_with_cpp.png" alt="Cpp build tools workload" loading="lazy"></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: You can use the C++ toolset from Visual Studio
+ Build Tools along with Visual Studio Code to compile, build, and verify
+ any C++ codebase as long as you also have a valid Visual Studio license
+ (either Community, Pro, or Enterprise) that you are actively using to 
+develop that C++ codebase.</p>
+</blockquote>
+<h3 id="_check-your-microsoft-visual-c-installation" data-needslink="_check-your-microsoft-visual-c-installation">Check your Microsoft Visual C++ installation<a class="hash-link transparent" href="#_check-your-microsoft-visual-c-installation" aria-label="Check your Microsoft Visual C++ installation">#</a></h3>
+<p>To use MSVC from a command line or VS Code, you must run from a <strong>Developer Command Prompt for Visual Studio</strong>.
+ An ordinary shell such as PowerShell, Bash, or the Windows command 
+prompt does not have the necessary path environment variables set.</p>
+<p>To open the Developer Command Prompt for VS, start typing 'developer'
+ in the Windows Start menu, and you should see it appear in the list of 
+suggestions. The exact name depends on which version of Visual Studio or
+ the Visual Studio Build Tools you have installed. Select the item to 
+open the prompt.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/developer-cmd-prompt-menu.png" alt="Developer Command Prompt" loading="lazy"></p>
+<p>You can test that you have the C++ compiler, <code>cl.exe</code>, installed correctly by typing 'cl' and you should see a copyright message with the version and basic usage description.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/check-cl-exe.png" alt="Checking cl.exe installation" loading="lazy"></p>
+<p>If the Developer Command Prompt is using the BuildTools location as 
+the starting directory (you wouldn't want to put projects there), 
+navigate to your user folder (<code>C:\users\{your username}\</code>) before you start creating new projects.</p>
+<blockquote>
+<p><strong>Note</strong>: If for some reason you can't run VS Code from a <strong>Developer Command Prompt</strong>, you can find a workaround for building C++ projects with VS Code in <a href="#_run-vs-code-outside-the-developer-command-prompt">Run VS Code outside a Developer Command Prompt</a>.</p>
+</blockquote>
+<h2 id="_create-hello-world" data-needslink="_create-hello-world">Create Hello World<a class="hash-link transparent" href="#_create-hello-world" aria-label="Create Hello World">#</a></h2>
+<p>From the Developer Command Prompt, create an empty folder called 
+"projects" where you can store all your VS Code projects, then create a 
+subfolder called "helloworld", navigate into it, and open VS Code (<code>code</code>) in that folder (<code>.</code>) by entering the following commands:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span style="color: #000000">mkdir projects</span>
+<span style="color: #000000">cd projects</span>
+<span style="color: #000000">mkdir helloworld</span>
+<span style="color: #000000">cd helloworld</span>
+<span style="color: #000000">code .</span></code></pre>
+<p>The "code ." command opens VS Code in the current working folder, 
+which becomes your "workspace". As you go through the tutorial, you will
+ see three files created in a <code>.vscode</code> folder in the workspace:</p>
+<ul>
+<li><code>tasks.json</code> (build instructions)</li>
+<li><code>launch.json</code> (debugger settings)</li>
+<li><code>c_cpp_properties.json</code> (compiler path and IntelliSense settings)</li>
+</ul>
+<h3 id="_add-a-source-code-file" data-needslink="_add-a-source-code-file">Add a source code file<a class="hash-link transparent" href="#_add-a-source-code-file" aria-label="Add a source code file">#</a></h3>
+<p>In the File Explorer title bar, select the <strong>New File</strong> button and name the file <code>helloworld.cpp</code>.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/new-file-button.png" alt="New File title bar button" loading="lazy"></p>
+<h3 id="_add-hello-world-source-code" data-needslink="_add-hello-world-source-code">Add hello world source code<a class="hash-link transparent" href="#_add-hello-world-source-code" aria-label="Add hello world source code">#</a></h3>
+<p>Now paste in this source code:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span style="color: #0000FF">#include </span><span style="color: #A31515">&lt;iostream&gt;</span>
+<span style="color: #0000FF">#include </span><span style="color: #A31515">&lt;vector&gt;</span>
+<span style="color: #0000FF">#include </span><span style="color: #A31515">&lt;string&gt;</span>
+
+<span style="color: #0000FF">using</span><span style="color: #000000"> </span><span style="color: #0000FF">namespace</span><span style="color: #000000"> </span><span style="color: #267F99">std</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">int</span><span style="color: #000000"> </span><span style="color: #795E26">main</span><span style="color: #000000">()</span>
+<span style="color: #000000">{</span>
+<span style="color: #000000">    vector&lt;string&gt; msg {</span><span style="color: #A31515">"Hello"</span><span style="color: #000000">, </span><span style="color: #A31515">"C++"</span><span style="color: #000000">, </span><span style="color: #A31515">"World"</span><span style="color: #000000">, </span><span style="color: #A31515">"from"</span><span style="color: #000000">, </span><span style="color: #A31515">"VS Code"</span><span style="color: #000000">, </span><span style="color: #A31515">"and the C++ extension!"</span><span style="color: #000000">};</span>
+
+<span style="color: #000000">    </span><span style="color: #0000FF">for</span><span style="color: #000000"> (</span><span style="color: #0000FF">const</span><span style="color: #000000"> string&amp; word : msg)</span>
+<span style="color: #000000">    {</span>
+<span style="color: #000000">        cout &lt;&lt; word &lt;&lt; </span><span style="color: #A31515">" "</span><span style="color: #000000">;</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">    cout &lt;&lt; endl;</span>
+<span style="color: #000000">}</span></code></pre>
+<p>Now press <span class="dynamic-keybinding keybinding win" data-commandid="workbench.action.files.save" data-osx="⌘S" data-win="Ctrl+S" data-linux="Ctrl+S" title="macOS: ⌘S, Linux: Ctrl+S">Ctrl+S</span> to save the file. Notice how the file you just added appears in the <strong>File Explorer</strong> view (<span class="dynamic-keybinding keybinding win" data-commandid="workbench.view.explorer" data-osx="⇧⌘E" data-win="Ctrl+Shift+E" data-linux="Ctrl+Shift+E" title="macOS: ⇧⌘E, Linux: Ctrl+Shift+E">Ctrl+Shift+E</span>) in the side bar of VS Code:</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/file-explorer.png" alt="File Explorer" loading="lazy"></p>
+<p>You can also enable <a href="https://code.visualstudio.com/docs/editor/codebasics#_save-auto-save">Auto Save</a> to automatically save your file changes, by checking <strong>Auto Save</strong> in the main <strong>File</strong> menu.</p>
+<p>The Activity Bar on the far left lets you open different views such as <strong>Search</strong>, <strong>Source Control</strong>, and <strong>Run</strong>. You'll look at the <strong>Run</strong> view later in this tutorial. You can find out more about the other views in the VS Code <a href="https://code.visualstudio.com/docs/getstarted/userinterface">User Interface documentation</a>.</p>
+<blockquote>
+<p><strong>Note</strong>: When you save or open a C++ file, you may see a
+ notification from the C/C++ extension about the availability of an 
+Insiders version, which lets you test new features and fixes. You can 
+ignore this notification by selecting the <code>X</code> (<strong>Clear Notification</strong>).</p>
+</blockquote>
+<h2 id="_explore-intellisense" data-needslink="_explore-intellisense">Explore IntelliSense<a class="hash-link transparent" href="#_explore-intellisense" aria-label="Explore IntelliSense">#</a></h2>
+<p>In your new <code>helloworld.cpp</code> file, hover over <code>vector</code> or <code>string</code> to see type information. After the declaration of the <code>msg</code> variable, start typing <code>msg.</code>
+ as you would when calling a member function. You should immediately see
+ a completion list that shows all the member functions, and a window 
+that shows the type information for the <code>msg</code> object:</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/msg-intellisense.png" alt="Statement completion IntelliSense" loading="lazy"></p>
+<p>You can press the <span class="keybinding">Tab</span> key to insert 
+the selected member; then, when you add the opening parenthesis, you 
+will see information about any arguments that the function requires.</p>
+<h2 id="_run-helloworldcpp" data-needslink="_run-helloworldcpp">Run helloworld.cpp<a class="hash-link transparent" href="#_run-helloworldcpp" aria-label="Run helloworld.cpp">#</a></h2>
+<p>Remember, the C++ extension uses the C++ compiler you have installed 
+on your machine to build your program. Make sure you have a C++ compiler
+ installed before attempting to run and debug <code>helloworld.cpp</code> in VS Code.</p>
+<ol>
+<li>
+<p>Open <code>helloworld.cpp</code> so that it is the active file.</p>
+</li>
+<li>
+<p>Press the play button in the top right corner of the editor.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/run-play-button.png" alt="Screenshot of helloworld.cpp and play button" loading="lazy"></p>
+</li>
+<li>
+<p>Choose <strong>C/C++: cl.exe build and debug active file</strong> from the list of detected compilers on your system.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/select-cl-compiler.png" alt="C++ debug configuration dropdown" loading="lazy"></p>
+</li>
+</ol>
+<p>You'll only be asked to choose a compiler the first time you run <code>helloworld.cpp</code>. This compiler will be set as the "default" compiler in <code>tasks.json</code> file.</p>
+<ol start="4">
+<li>
+<p>After the build succeeds, your program's output will appear in the integrated <strong>Terminal</strong>.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/helloworld-terminal-output.png" alt="screenshot of program output" loading="lazy"></p>
+</li>
+</ol>
+<p>If you get an error trying to build and debug with cl.exe, make sure you have <a href="#_check-your-microsoft-visual-c-installation">started VS Code from the Developer Command Prompt for Visual Studio</a> using the <code>code .</code> shortcut.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/dev-command-prompt-error.png" alt="Error notification when trying to use MSVC without running VS Code from the Developer Command Prompt for VS" loading="lazy"></p>
+<p>The first time you run your program, the C++ extension creates <code>tasks.json</code>, which you'll find in your project's <code>.vscode</code> folder. <code>tasks.json</code> stores build configurations.</p>
+<p>Your new <code>tasks.json</code> file should look similar to the JSON below:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span style="color: #000000">{</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"version"</span><span style="color: #000000">: </span><span style="color: #A31515">"2.0.0"</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"tasks"</span><span style="color: #000000">: [</span>
+<span style="color: #000000">    {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"type"</span><span style="color: #000000">: </span><span style="color: #A31515">"shell"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"label"</span><span style="color: #000000">: </span><span style="color: #A31515">"C/C++: cl.exe build active file"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"command"</span><span style="color: #000000">: </span><span style="color: #A31515">"cl.exe"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"args"</span><span style="color: #000000">: [</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"/Zi"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"/EHsc"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"/Fe:"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"${fileDirname}</span><span style="color: #EE0000">\\</span><span style="color: #A31515">${fileBasenameNoExtension}.exe"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"${file}"</span>
+<span style="color: #000000">      ],</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"problemMatcher"</span><span style="color: #000000">: [</span><span style="color: #A31515">"$msCompile"</span><span style="color: #000000">],</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"group"</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">"kind"</span><span style="color: #000000">: </span><span style="color: #A31515">"build"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">"isDefault"</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span>
+<span style="color: #000000">      },</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"detail"</span><span style="color: #000000">: </span><span style="color: #A31515">"Task generated by Debugger."</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  ]</span>
+<span style="color: #000000">}</span></code></pre>
+<blockquote>
+<p><strong>Note</strong>: You can learn more about <code>tasks.json</code> variables in the <a href="https://code.visualstudio.com/docs/editor/variables-reference">variables reference</a>.</p>
+</blockquote>
+<p>The <code>command</code> setting specifies the program to run; in this case that is "cl.exe". The <code>args</code>
+ array specifies the command-line arguments that will be passed to 
+cl.exe. These arguments must be specified in the order expected by the 
+compiler.</p>
+<p>This task tells the C++ compiler to take the active file (<code>${file}</code>), compile it, and create an executable file (<code>/Fe:</code> switch) in the current directory (<code>${fileDirname}</code>) with the same name as the active file but with the <code>.exe</code> extension (<code>${fileBasenameNoExtension}.exe</code>), resulting in <code>helloworld.exe</code> for our example.</p>
+<p>The <code>label</code> value is what you will see in the tasks list; you can name this whatever you like.</p>
+<p>The <code>detail</code> value is what you will as the description of 
+the task in the tasks list. It's highly recommended to rename this value
+ to differentiate it from similar tasks.</p>
+<p>The <code>problemMatcher</code> value selects the output parser to 
+use for finding errors and warnings in the compiler output. For cl.exe, 
+you'll get the best results if you use the <code>$msCompile</code> problem matcher.</p>
+<p>From now on, the play button will read from <code>tasks.json</code> to figure out how to build and run your program. You can define multiple build tasks in <code>tasks.json</code>,
+ and whichever task is marked as the default will be used by the play 
+button. In case you need to change the default compiler, you can run <strong>Tasks: Configure default build task</strong>. Alternatively you can modify the <code>tasks.json</code> file and remove the default by replacing this segment:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span style="color: #000000">    </span><span style="color: #A31515">"group"</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">"kind"</span><span style="color: #000000">: </span><span style="color: #A31515">"build"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">"isDefault"</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span>
+<span style="color: #000000">    },</span></code></pre>
+<p>with this:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span style="color: #000000">    </span><span style="color: #A31515">"group"</span><span style="color: #000000">: </span><span style="color: #A31515">"build"</span><span style="color: #000000">,</span></code></pre>
+<h3 id="_modifying-tasksjson" data-needslink="_modifying-tasksjson">Modifying tasks.json<a class="hash-link transparent" href="#_modifying-tasksjson" aria-label="Modifying tasks.json">#</a></h3>
+<p>You can modify your <code>tasks.json</code> to build multiple C++ files by using an argument like <code>"${workspaceFolder}/*.cpp"</code> instead of <code>${file}</code>.This will build all <code>.cpp</code> files in your current folder. You can also modify the output filename by replacing <code>"${fileDirname}\\${fileBasenameNoExtension}.exe"</code> with a hard-coded filename (for example <code>"${workspaceFolder}\\myProgram.exe"</code>).</p>
+<h2 id="_debug-helloworldcpp" data-needslink="_debug-helloworldcpp">Debug helloworld.cpp<a class="hash-link transparent" href="#_debug-helloworldcpp" aria-label="Debug helloworld.cpp">#</a></h2>
+<ol>
+<li>Go back to <code>helloworld.cpp</code> so that it is the active file.</li>
+<li>Set a breakpoint by clicking on the editor margin or using F9 on the current line.
+<img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/cpp-breakpoint.png" alt="screenshot of breakpoint in helloworld.cpp" loading="lazy"></li>
+<li>From the drop-down next to the play button, select <strong>Debug C/C++ File</strong>.
+<img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/run-debug-arrow.png" alt="Screenshot of play button drop-down" loading="lazy">
+<img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/debug-cpp-file-play-button.png" alt="Screenshot of play button drop-down" loading="lazy"></li>
+<li>Choose <strong>C/C++: cl.exe build and debug active file</strong> from the list of detected compilers on your system (you'll only be asked to choose a compiler the first time you run/debug <code>helloworld.cpp</code>).
+<img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/select-cl-compiler.png" alt="C++ debug configuration dropdown" loading="lazy"></li>
+</ol>
+<p>The play button has two modes: <strong>Run C/C++ File</strong> and <strong>Debug C/C++ File</strong>.
+ It will default to the last-used mode. If you see the debug icon in the
+ play button, you can just click the play button to debug, instead of 
+selecting the drop-down menu item.
+<img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/debug-button.png" alt="screenshot of play button in debug mode" loading="lazy"></p>
+<p>If you get an error trying to build and debug with cl.exe, make sure you have <a href="#_check-your-microsoft-visual-c-installation">started VS Code from the Developer Command Prompt for Visual Studio</a> using the <code>code .</code> shortcut.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/dev-command-prompt-error.png" alt="Error notification when trying to use MSVC without running VS Code from the Developer Command Prompt for VS" loading="lazy"></p>
+<h2 id="_explore-the-debugger" data-needslink="_explore-the-debugger">Explore the debugger<a class="hash-link transparent" href="#_explore-the-debugger" aria-label="Explore the debugger">#</a></h2>
+<p>Before you start stepping through the code, let's take a moment to notice several changes in the user interface:</p>
+<ul>
+<li>
+<p>The Integrated Terminal appears at the bottom of the source code editor. In the <strong>Debug Output</strong> tab, you see output that indicates the debugger is up and running.</p>
+</li>
+<li>
+<p>The editor highlights the line where you set a breakpoint before starting the debugger:</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/breakpoint-debug.png" alt="Initial breakpoint" loading="lazy"></p>
+</li>
+<li>
+<p>The Run view on the left shows debugging information. You'll see an example later in the tutorial.</p>
+</li>
+<li>
+<p>At the top of the code editor, a debugging control panel appears. You
+ can move this around the screen by grabbing the dots on the left side.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/debug-controls.png" alt="Debugging controls" loading="lazy"></p>
+</li>
+</ul>
+<h2 id="_step-through-the-code" data-needslink="_step-through-the-code">Step through the code<a class="hash-link transparent" href="#_step-through-the-code" aria-label="Step through the code">#</a></h2>
+<p>Now you're ready to start stepping through the code.</p>
+<ol>
+<li>
+<p>Click or press the <strong>Step over</strong> icon in the debugging control panel.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/step-over-button.png" alt="Step over button" loading="lazy"></p>
+<p>This will advance program execution to the first line of the for loop, and skip over all the internal function calls within the <code>vector</code> and <code>string</code> classes that are invoked when the <code>msg</code> variable is created and initialized. Notice the change in the <strong>Variables</strong> window on the left.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/debug-view-variables.png" alt="Debugging windows" loading="lazy"></p>
+<p>In this case, the errors are expected because, although the variable 
+names for the loop are now visible to the debugger, the statement has 
+not executed yet, so there is nothing to read at this point. The 
+contents of <code>msg</code> are visible, however, because that statement has completed.</p>
+</li>
+<li>
+<p>Press <strong>Step over</strong> again to advance to the next 
+statement in this program (skipping over all the internal code that is 
+executed to initialize the loop). Now, the <strong>Variables</strong> window shows information about the loop variables.</p>
+</li>
+<li>
+<p>Press <strong>Step over</strong> again to execute the <code>cout</code> statement. (Note that as of the March 2019 release, the C++ extension does not print any output to the <strong>Debug Console</strong> until the loop exits.)</p>
+</li>
+<li>
+<p>If you like, you can keep pressing <strong>Step over</strong> until all the words in the vector have been printed to the console. But if you are curious, try pressing the <strong>Step Into</strong> button to step through source code in the C++ standard library!</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/gcc-system-header-stepping.png" alt="Breakpoint in gcc standard library header" loading="lazy"></p>
+<p>To return to your own code, one way is to keep pressing <strong>Step over</strong>. Another way is to set a breakpoint in your code by switching to the <code>helloworld.cpp</code> tab in the code editor, putting the insertion point somewhere on the <code>cout</code> statement inside the loop, and pressing <span class="dynamic-keybinding keybinding win" data-commandid="editor.debug.action.toggleBreakpoint" data-osx="F9" data-win="F9" data-linux="F9" title="macOS: F9, Linux: F9">F9</span>. A red dot appears in the gutter on the left to indicate that a breakpoint has been set on this line.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/breakpoint-in-main.png" alt="Breakpoint in main" loading="lazy"></p>
+<p>Then press <span class="dynamic-keybinding keybinding win" data-commandid="workbench.action.debug.start" data-osx="F5" data-win="F5" data-linux="F5" title="macOS: F5, Linux: F5">F5</span> to start execution from the current line in the standard library header. Execution will break on <code>cout</code>. If you like, you can press <span class="dynamic-keybinding keybinding win" data-commandid="editor.debug.action.toggleBreakpoint" data-osx="F9" data-win="F9" data-linux="F9" title="macOS: F9, Linux: F9">F9</span> again to toggle off the breakpoint.</p>
+</li>
+</ol>
+<h2 id="_set-a-watch" data-needslink="_set-a-watch">Set a watch<a class="hash-link transparent" href="#_set-a-watch" aria-label="Set a watch">#</a></h2>
+<p>Sometimes you might want to keep track of the value of a variable as your program executes. You can do this by setting a <strong>watch</strong> on the variable.</p>
+<ol>
+<li>
+<p>Place the insertion point inside the loop. In the <strong>Watch</strong> window, select the plus sign and in the text box, type <code>word</code>, which is the name of the loop variable. Now view the Watch window as you step through the loop.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/watch-window.png" alt="Watch window" loading="lazy"></p>
+</li>
+<li>
+<p>Add another watch by adding this statement before the loop: <code>int i = 0;</code>. Then, inside the loop, add this statement: <code>++i;</code>. Now add a watch for <code>i</code> as you did in the previous step.</p>
+</li>
+<li>
+<p>To quickly view the value of any variable while execution is paused 
+on a breakpoint, you can hover over it with the mouse pointer.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/mouse-hover.png" alt="Mouse hover" loading="lazy"></p>
+</li>
+</ol>
+<h2 id="_customize-debugging-with-launchjson" data-needslink="_customize-debugging-with-launchjson">Customize debugging with launch.json<a class="hash-link transparent" href="#_customize-debugging-with-launchjson" aria-label="Customize debugging with launch.json">#</a></h2>
+<p>When you debug with the play button or <span class="dynamic-keybinding keybinding win" data-commandid="workbench.action.debug.start" data-osx="F5" data-win="F5" data-linux="F5" title="macOS: F5, Linux: F5">F5</span>, the C++ extension creates a dynamic debug configuration on the fly.</p>
+<p>There are cases where you'd want to customize your debug 
+configuration, such as specifying arguments to pass to the program at 
+runtime. You can define custom debug configurations in a <code>launch.json</code> file.</p>
+<p>To create <code>launch.json</code>, choose <strong>Add Debug Configuration</strong> from the play button drop-down menu.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/add-debug-configuration.png" alt="Add debug configuration play button menu" loading="lazy"></p>
+<p>You'll then see a dropdown for various predefined debugging configurations. Choose <strong>C/C++: cl.exe build and debug active file</strong>.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/select-cl-compiler.png" alt="C++ debug configuration dropdown" loading="lazy"></p>
+<p>VS Code creates a <code>launch.json</code> file, which looks something like this:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span style="color: #000000">{</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"version"</span><span style="color: #000000">: </span><span style="color: #A31515">"0.2.0"</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"configurations"</span><span style="color: #000000">: [</span>
+<span style="color: #000000">    {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"name"</span><span style="color: #000000">: </span><span style="color: #A31515">"C/C++: cl.exe build and debug active file"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"type"</span><span style="color: #000000">: </span><span style="color: #A31515">"cppvsdbg"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"request"</span><span style="color: #000000">: </span><span style="color: #A31515">"launch"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"program"</span><span style="color: #000000">: </span><span style="color: #A31515">"${fileDirname}</span><span style="color: #EE0000">\\</span><span style="color: #A31515">${fileBasenameNoExtension}.exe"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"args"</span><span style="color: #000000">: [],</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"stopAtEntry"</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"cwd"</span><span style="color: #000000">: </span><span style="color: #A31515">"${workspaceFolder}"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"environment"</span><span style="color: #000000">: [],</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"externalConsole"</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"preLaunchTask"</span><span style="color: #000000">: </span><span style="color: #A31515">"C/C++: cl.exe build active file"</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  ]</span>
+<span style="color: #000000">}</span></code></pre>
+<p>In the JSON above, <code>program</code> specifies the program you want to debug. Here it is set to the active file folder (<code>${fileDirname}</code>) and active filename with the <code>.exe</code> extension (<code>${fileBasenameNoExtension}.exe</code>), which if <code>helloworld.cpp</code> is the active file will be <code>helloworld.exe</code>. The <code>args</code> property is an array of arguments to pass to the program at runtime.</p>
+<p>By default, the C++ extension won't add any breakpoints to your source code and the <code>stopAtEntry</code> value is set to <code>false</code>.</p>
+<p>Change the <code>stopAtEntry</code> value to <code>true</code> to cause the debugger to stop on the <code>main</code> method when you start debugging.</p>
+<blockquote>
+<p>From now on, the play button and <span class="dynamic-keybinding keybinding win" data-commandid="workbench.action.debug.start" data-osx="F5" data-win="F5" data-linux="F5" title="macOS: F5, Linux: F5">F5</span> will read from your <code>launch.json</code> file when launching your program for debugging.</p>
+</blockquote>
+<h2 id="_cc-configurations" data-needslink="_cc-configurations">C/C++ configurations<a class="hash-link transparent" href="#_cc-configurations" aria-label="C/C++ configurations">#</a></h2>
+<p>If you want more control over the C/C++ extension, you can create a <code>c_cpp_properties.json</code>
+ file, which will allow you to change settings such as the path to the 
+compiler, include paths, C++ standard (default is C++17), and more.</p>
+<p>You can view the C/C++ configuration UI by running the command <strong>C/C++: Edit Configurations (UI)</strong> from the Command Palette (<span class="dynamic-keybinding keybinding win" data-commandid="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P" title="macOS: ⇧⌘P, Linux: Ctrl+Shift+P">Ctrl+Shift+P</span>).</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/command-palette.png" alt="Command Palette" loading="lazy"></p>
+<p>This opens the <strong>C/C++ Configurations</strong> page. When you make changes here, VS Code writes them to a file called <code>c_cpp_properties.json</code> in the <code>.vscode</code> folder.</p>
+<p><img src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/configurations-ui.png" alt="Command Palette" loading="lazy"></p>
+<p>Visual Studio Code places these settings in <code>.vscode\c_cpp_properties.json</code>. If you open that file directly, it should look something like this:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span style="color: #000000">{</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"configurations"</span><span style="color: #000000">: [</span>
+<span style="color: #000000">    {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"name"</span><span style="color: #000000">: </span><span style="color: #A31515">"Win32"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"includePath"</span><span style="color: #000000">: [</span><span style="color: #A31515">"${workspaceFolder}/**"</span><span style="color: #000000">],</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"defines"</span><span style="color: #000000">: [</span><span style="color: #A31515">"_DEBUG"</span><span style="color: #000000">, </span><span style="color: #A31515">"UNICODE"</span><span style="color: #000000">, </span><span style="color: #A31515">"_UNICODE"</span><span style="color: #000000">],</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"windowsSdkVersion"</span><span style="color: #000000">: </span><span style="color: #A31515">"10.0.18362.0"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"compilerPath"</span><span style="color: #000000">: </span><span style="color: #A31515">"C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/VC/Tools/MSVC/14.24.28314/bin/Hostx64/x64/cl.exe"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"cStandard"</span><span style="color: #000000">: </span><span style="color: #A31515">"c11"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"cppStandard"</span><span style="color: #000000">: </span><span style="color: #A31515">"c++17"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"intelliSenseMode"</span><span style="color: #000000">: </span><span style="color: #A31515">"msvc-x64"</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  ],</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"version"</span><span style="color: #000000">: </span><span style="color: #098658">4</span>
+<span style="color: #000000">}</span></code></pre>
+<p>You only need to add to the <strong>Include path</strong> array setting if your program includes header files that are not in your workspace or in the standard library path.</p>
+<h3 id="_compiler-path" data-needslink="_compiler-path">Compiler path<a class="hash-link transparent" href="#_compiler-path" aria-label="Compiler path">#</a></h3>
+<p>The <code>compilerPath</code> setting is an important setting in your
+ configuration. The extension uses it to infer the path to the C++ 
+standard library header files. When the extension knows where to find 
+those files, it can provide useful features like smart completions and <strong>Go to Definition</strong> navigation.</p>
+<p>The C/C++ extension attempts to populate <code>compilerPath</code> 
+with the default compiler location based on what it finds on your 
+system. The extension looks in several common compiler locations.</p>
+<p>The <code>compilerPath</code> search order is:</p>
+<ul>
+<li>First check for the Microsoft Visual C++ compilerOpe</li>
+<li>Then look for g++ on Windows Subsystem for Linux (WSL)</li>
+<li>Then g++ for Mingw-w64.</li>
+</ul>
+<p>If you have g++ or WSL installed, you might need to change <code>compilerPath</code>
+ to match the preferred compiler for your project. For Microsoft C++, 
+the path should look something like this, depending on which specific 
+version you have installed: "C:/Program Files (x86)/Microsoft Visual 
+Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe".</p>
+<h2 id="_reusing-your-c-configuration" data-needslink="_reusing-your-c-configuration">Reusing your C++ configuration<a class="hash-link transparent" href="#_reusing-your-c-configuration" aria-label="Reusing your C++ configuration">#</a></h2>
+<p>VS Code is now configured to use the Microsoft C++ compiler. The 
+configuration applies to the current workspace. To reuse the 
+configuration, just copy the JSON files to a <code>.vscode</code> folder in a new project folder (workspace) and change the names of the source file(s) and executable as needed.</p>
+<h2 id="_run-vs-code-outside-the-developer-command-prompt" data-needslink="_run-vs-code-outside-the-developer-command-prompt">Run VS Code outside the Developer Command Prompt<a class="hash-link transparent" href="#_run-vs-code-outside-the-developer-command-prompt" aria-label="Run VS Code outside the Developer Command Prompt">#</a></h2>
+<p>In certain circumstances, it isn't possible to run VS Code from <strong>Developer Command Prompt for Visual Studio</strong> (for example, in Remote Development through SSH scenarios). In that case, you can automate initialization of <strong>Developer Command Prompt for Visual Studio</strong> during the build using the following <code>tasks.json</code> configuration:</p>
+<pre class="shiki" style="background-color: #FFFFFF"><code><span style="color: #000000">{</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"version"</span><span style="color: #000000">: </span><span style="color: #A31515">"2.0.0"</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"windows"</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">"options"</span><span style="color: #000000">: {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"shell"</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">"executable"</span><span style="color: #000000">: </span><span style="color: #A31515">"cmd.exe"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">"args"</span><span style="color: #000000">: [</span>
+<span style="color: #000000">          </span><span style="color: #A31515">"/C"</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #008000">// The path to VsDevCmd.bat depends on the version of Visual Studio you have installed.</span>
+<span style="color: #000000">          </span><span style="color: #A31515">"</span><span style="color: #EE0000">\"</span><span style="color: #A31515">C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/Tools/VsDevCmd.bat</span><span style="color: #EE0000">\"</span><span style="color: #A31515">"</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #A31515">"&amp;&amp;"</span>
+<span style="color: #000000">        ]</span>
+<span style="color: #000000">      }</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"tasks"</span><span style="color: #000000">: [</span>
+<span style="color: #000000">    {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"type"</span><span style="color: #000000">: </span><span style="color: #A31515">"shell"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"label"</span><span style="color: #000000">: </span><span style="color: #A31515">"cl.exe build active file"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"command"</span><span style="color: #000000">: </span><span style="color: #A31515">"cl.exe"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"args"</span><span style="color: #000000">: [</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"/Zi"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"/EHsc"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"/Fe:"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"${fileDirname}</span><span style="color: #EE0000">\\</span><span style="color: #A31515">${fileBasenameNoExtension}.exe"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #A31515">"${file}"</span>
+<span style="color: #000000">      ],</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"problemMatcher"</span><span style="color: #000000">: [</span><span style="color: #A31515">"$msCompile"</span><span style="color: #000000">],</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">"group"</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">"kind"</span><span style="color: #000000">: </span><span style="color: #A31515">"build"</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">"isDefault"</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span>
+<span style="color: #000000">      }</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  ]</span>
+<span style="color: #000000">}</span></code></pre>
+<blockquote>
+<p><strong>Note</strong>: The path to <code>VsDevCmd.bat</code> might be different depending on the Visual Studio version or installation path. You can find the path to <code>VsDevCmd.bat</code> by opening a Command Prompt and running <code>dir "\VsDevCmd*" /s</code>.</p>
+</blockquote>
+<h2 id="_troubleshooting" data-needslink="_troubleshooting">Troubleshooting<a class="hash-link transparent" href="#_troubleshooting" aria-label="Troubleshooting">#</a></h2>
+<h3 id="_the-term-clexe-is-not-recognized" data-needslink="_the-term-clexe-is-not-recognized">The term 'cl.exe' is not recognized<a class="hash-link transparent" href="#_the-term-clexe-is-not-recognized" aria-label="The term 'cl.exe' is not recognized">#</a></h3>
+<p>If you see the error "The term 'cl.exe' is not recognized as the name
+ of a cmdlet, function, script file, or operable program.", this usually
+ means you are running VS Code outside of a <strong>Developer Command Prompt for Visual Studio</strong> and VS Code doesn't know the path to the <code>cl.exe</code> compiler.</p>
+<p>VS Code must either be started from the Developer Command Prompt for Visual Studio, or the task must be configured to <a href="#_run-vs-code-outside-the-developer-command-prompt">run outside a Developer Command Prompt</a>.</p>
+<p>You can always check that you are running VS Code in the context of the Developer Command Prompt by opening a new Terminal (<span class="dynamic-keybinding keybinding win" data-commandid="workbench.action.terminal.new" data-osx="⌃⇧`" data-win="Ctrl+Shift+`" data-linux="Ctrl+Shift+`" title="macOS: ⌃⇧`, Linux: Ctrl+Shift+`">Ctrl+Shift+`</span>) and typing 'cl' to verify <code>cl.exe</code> is available to VS Code.</p>
+<h3 id="_fatal-error-c1034-asserth-no-include-path-set" data-needslink="_fatal-error-c1034-asserth-no-include-path-set">fatal error C1034: assert.h: no include path set<a class="hash-link transparent" href="#_fatal-error-c1034-asserth-no-include-path-set" aria-label="fatal error C1034: assert.h: no include path set">#</a></h3>
+<p>In this case, <code>cl.exe</code> is available to VS Code through the <code>PATH</code> environment variable, but VS Code still needs to either be started from the <strong>Developer Command Prompt for Visual Studio</strong>, or be configured to <a href="#_run-vs-code-outside-the-developer-command-prompt">run outside the Developer Command Prompt</a>. Otherwise, <code>cl.exe</code> does not have access to important environment variables such as <code>INCLUDE</code>.</p>
+<h2 id="_next-steps" data-needslink="_next-steps">Next steps<a class="hash-link transparent" href="#_next-steps" aria-label="Next steps">#</a></h2>
+<ul>
+<li>Explore the <a href="https://code.visualstudio.com/docs/editor/codebasics">VS Code User Guide</a>.</li>
+<li>Review the <a href="https://code.visualstudio.com/docs/languages/cpp">Overview of the C++ extension</a>.</li>
+<li>Create a new workspace, copy your <code>.vscode</code> JSON files to it, adjust the necessary settings for the new workspace path, program name, and so on, and start coding!</li>
+</ul>
+
+            <div class="feedback"><div class="widget"><form aria-label="Feedback"><div class="buttons"><h3 class="feedback-header">Was this documentation helpful?</h3><br><button value="1">Yes<span class="sr-only"> , this page was helpful</span></button><button value="0">No<span class="sr-only"> , this page was not helpful</span></button></div></form></div></div>
+            
+            <div class="body-footer">5/13/2022</div>
+            
+        </div>
+        <div class="col-sm-3 col-md-2 docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20" class="affix">
+                
+                <h4><span class="sr-only">In this article there are 14 sections</span><span aria-hidden="true">In this article</span></h4>
+                <ul class="nav">
+                    
+                    <li class=""><a href="#_prerequisites">Prerequisites</a></li>
+                    
+                    <li class=""><a href="#_create-hello-world">Create Hello World</a></li>
+                    
+                    <li class=""><a href="#_explore-intellisense">Explore IntelliSense</a></li>
+                    
+                    <li class=""><a href="#_run-helloworldcpp">Run helloworld.cpp</a></li>
+                    
+                    <li class="active"><a href="#_debug-helloworldcpp">Debug helloworld.cpp</a></li>
+                    
+                    <li><a href="#_explore-the-debugger">Explore the debugger</a></li>
+                    
+                    <li><a href="#_step-through-the-code">Step through the code</a></li>
+                    
+                    <li><a href="#_set-a-watch">Set a watch</a></li>
+                    
+                    <li><a href="#_customize-debugging-with-launchjson">Customize debugging with launch.json</a></li>
+                    
+                    <li><a href="#_cc-configurations">C/C++ configurations</a></li>
+                    
+                    <li><a href="#_reusing-your-c-configuration">Reusing your C++ configuration</a></li>
+                    
+                    <li><a href="#_run-vs-code-outside-the-developer-command-prompt">Run VS Code outside the Developer Command Prompt</a></li>
+                    
+                    <li><a href="#_troubleshooting">Troubleshooting</a></li>
+                    
+                    <li><a href="#_next-steps">Next steps</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"><ul class="connect-links"><li id="connect-twitter-link"><a href="https://twitter.com/intent/tweet?original_referer=https://code.visualstudio.com/docs/cpp/config-msvc&amp;ref_src=twsrc%5Etfw&amp;text=Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++&amp;tw_p=tweetbutton&amp;url=https://code.visualstudio.com/docs/cpp/config-msvc&amp;via=code" target="_blank"><img alt="Twitter" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/twitter.svg">Tweet this link</a></li><li id="connect-rssfeed"><a href="https://code.visualstudio.com/feed.xml" target="_blank"><img alt="RSS" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/rss.svg">Subscribe</a></li><li id="connect-stack-overflow"><a href="https://stackoverflow.com/questions/tagged/vscode" target="_blank"><img alt="Stackoverflow" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/stackoverflow.svg">Ask questions</a></li><li id="connect-twitter"><a href="https://go.microsoft.com/fwlink/?LinkID=533687" target="_blank"><img alt="Twitter" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/twitter.svg">Follow @code</a></li><li id="connect-uservoice"><a href="https://go.microsoft.com/fwlink/?LinkID=533482" target="_blank"><img alt="GitHub" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/github.svg">Request features</a></li><li id="connect-github"><a href="https://www.github.com/Microsoft/vscode/issues" target="_blank"><img alt="Issues" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/issue.svg">Report issues</a></li><li id="connect-youtube"><a href="https://www.youtube.com/channel/UCs5Y5_7XK8HLDX0SLNwkd3w" target="_blank"><img alt="YouTube" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/youtube.svg">Watch videos</a></li></ul></div>
+            </nav>
+        </div>
+    </div>
+</div>
+      </div>
+  </div>
+
+  <footer role="contentinfo">
+      <div class="container">
+          <div class="row">
+              <div class="left col-md-7">
+                  <ul class="links">
+                      <li>
+                          <span class="message">Hello from Seattle.</span>
+                      </li>
+                      <li>
+                          <a href="https://go.microsoft.com/fwlink/?LinkID=533687" onclick="followOnTwitter()" tabindex="0">Follow @code</a>
+                      </li>
+                      <li>
+                          <div class="github-star-button">
+                              <iframe src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/github-button.htm" scrolling="0" title="GitHub follow button" loading="lazy" width="130px" height="20px" frameborder="0"></iframe>
+                          </div>
+                      </li>
+  
+                      <script>
+                          function followOnTwitter() {
+                              var windowFeatures = "location=yes,height=600,width=550,scrollbars=yes,status=yes";
+                              var originalReferer = "&original_referer=" + document.URL;
+                              var screenName = "&screen_name=code";
+                              var URL = "https://twitter.com/intent/follow?" + originalReferer + screenName;
+                              window.open(URL, "_blank", windowFeatures);
+                          }
+  
+                          function manageConsent() {
+                              if(WcpConsent.siteConsent.isConsentRequired){
+                                  WcpConsent.siteConsent.manageConsent();
+                              }
+                          }
+                      </script>
+                  </ul>
+              </div>
+              <div class="right col-md-5">
+                  <ul class="links">
+                      <li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d" target="_blank">Support</a></li>
+                      <li><a id="footer-privacy-link" href="https://privacy.microsoft.com/privacystatement" target="_blank">Privacy</a></li>
+                      <li style="display: none;"><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()" target="_blank">Manage Cookies</a></li>
+                      <li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use" target="_blank">Terms of Use</a></li>
+                      <li><a id="footer-license-link" href="https://code.visualstudio.com/License">License</a></li>
+                  </ul>
+                  <div class="copyright">
+                      <a id="footer-microsoft-link" class="logo" href="https://www.microsoft.com/">
+                          <img class="microsoft-logo" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/microsoft-logo.png" alt="Microsoft homepage" height="20">
+                          <img class="microsoft-logo-inverted" src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/microsoft-logo-inverted.png" alt="Microsoft homepage" height="20">
+                      </a>
+                      <span>© 2022 Microsoft</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <script src="Configure%20Visual%20Studio%20Code%20for%20Microsoft%20C++_files/index.js"></script>
+
+  
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "SoftwareApplication",
+      "name" : "Visual Studio Code",
+      "softwareVersion": "1.69",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Text Editor",
+      "alternateName": "VS Code",
+      "datePublished": "2021-11-03",
+      "operatingSystem": "Mac, Linux, Windows",
+      "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+      "screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+      "releaseNotes": "https://code.visualstudio.com/updates",
+      "downloadUrl": "https://code.visualstudio.com/download",
+      "license": "https://code.visualstudio.com/license",
+      "softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+      "url" : "https://code.visualstudio.com",
+      "author": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://code.visualstudio.com/Search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs" : [
+        "https://en.wikipedia.org/wiki/Visual_Studio_Code",
+        "https://twitter.com/code",
+        "https://www.youtube.com/code",
+        "https://www.tiktok.com/@vscode",
+        "https://github.com/microsoft/vscode"
+      ]
+    }
+  </script>
+
+</body></html>

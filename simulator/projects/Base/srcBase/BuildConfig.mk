@@ -174,17 +174,15 @@ ASM_OPTIONS_LIST			= -c -fno-common  -g -Wextra -Wall  -Warray-bounds -Wcast-ali
 
 
 #sAnwar: -ansi cause an error every time a comment with "//" is used
-cc_mcal_mandatory_opt_lst 	= -ffreestanding -fno-short-enums -falign-functions=4 -ffunction-sections \
-                              -fno-ivopts -fno-peephole2 -O3 -mtc161 -D_GNU_C_TRICORE_=1 
- 
-cc_c_opt_lst				= -ggdb 
+cc_mcal_mandatory_opt_lst 	=  
+cc_c_opt_lst				= 
 cc_Preprocessor_opt_lst		=
 cc_directory_opt_lst		= 
 cc_optimization_opt_lst		=
-cc_trgt_dpndnt_opt_lst		= -mcpu=tc26xx 
-cc_warning_opt_lst			= -Wextra   -Warray-bounds -Wcast-align -Wignored-qualifiers -Wformat -Wformat-security -Wno-comment
-cc_debugging_opt_lst		= -g3 
-cc_output_opt_lst			= -c -fno-common 
+cc_trgt_dpndnt_opt_lst		= 
+cc_warning_opt_lst			= 
+cc_debugging_opt_lst		= 
+cc_output_opt_lst			= 
 cc_misc_opt_lst				= 
 cc_macros_lst				=         
 
@@ -194,12 +192,12 @@ CC_OPTIONS_LIST				= $(cc_mcal_mandatory_opt_lst) $(cc_c_opt_lst) $(cc_Preproces
 
 
 #-Wl,--mcpu=tc161 Option to check linking of objects with different cores
-ld_mandatory_opt_lst = -Wl,--gc-sections -Wl,--extmap=a			    
-ld_mcal_mandatory_opt_lst	= -Wl,--mcpu=tc161 
+ld_mandatory_opt_lst = 		    
+ld_mcal_mandatory_opt_lst	= 
 
-ld_input_opt_lst			= -nostartfiles 
+ld_input_opt_lst			=  
 								
-ld_generic_opt_lst			= -mcpu=tc26xx  -Wl,--cref 
+ld_generic_opt_lst			= 
 ld_debugging_opt_lst		= 
 ld_output_opt_lst			= 
 

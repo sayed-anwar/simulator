@@ -45,22 +45,18 @@
        #CmpFiles 	:=  $$(call rwildcard,$$(strip $2),$$(addprefix *.,$$(ASM_EXTENSION_LIST)) *.h *.c *.$$(LIB_EXTENSION))  
        #CmpFiles 	:= $$(filter $2/%,$$(AllFiles))           
        
-       $1ASMFILES 	:= $$(filter $$(addprefix %.,$(ASM_EXTENSION_LIST)),$2)
        $1CFILES		:= $$(filter %.c,$2)
+       $1CPPFILES 	:= $$(filter %.cpp,$2)
        $1HFILES		:= $$(filter %.h,$2)
        $1LIBFILES	:= $$(filter %.$(LIB_EXTENSION),$2)
                   
       
       
-       $$(eval $$(call print_list,$1 Component- List of assembly files:, $$($1ASMFILES)))
-            
-       $1OBJFILES_ASM  := $$(addprefix $(OBJ_DIR)/, $$(addsuffix .obj,$$(notdir $$($1ASMFILES))))
-       $$(eval $$(call print_list,$1 Component- List of assembly object files:, $$($1OBJFILES_ASM)))
-          
-       #dependency for S files only not s                       
-       $1DEPFILES_ASM	:= $$(addprefix $(DEP_DIR)/, $$(addsuffix .d,$$(notdir $$(filter %.S,$$($1ASMFILES)))))
-       $$(eval $$(call print_list,$1 Component- List of assembly dependecy files:, $$($1DEPFILES_ASM)))         
-   
+      
+       $$(eval $$(call print_list,$1 Component- List of cpp files:, $$($1CPPFILES)))
+                 
+       $1OBJFILES_CPP 		:= $$(patsubst %.cpp,$(OBJ_DIR)/%.o,$$(notdir $$($1CPPFILES)))  
+       $$(eval $$(call print_list,$1 Component- List of object files:, $$($1OBJFILES_CPP)))
      
       
        $$(eval $$(call print_list,$1 Component- List of c files:, $$($1CFILES)))
@@ -92,7 +88,7 @@
 
    #find all assembly, c, h and library files in SW,and all components 
    #cannot leave any space in the iput to rwildcard
-   AllFiles 		:= $(call rwildcard,$(strip $(SW_SOURCE_DIRS_LIST)),$(addprefix *.,$(ASM_EXTENSION_LIST)) *.h *.c *.$(LIB_EXTENSION))  
+   AllFiles 		:= $(call rwildcard,$(strip $(SW_SOURCE_DIRS_LIST)),*.cpp *.h *.c *.$(LIB_EXTENSION))  
    AllFiles 		:= $(sort $(AllFiles))
   
    #excluding directories
@@ -109,14 +105,6 @@
    #check duplication
    $(eval $(call check_duplication, $(AllFiles),error))
      
-   tmpASMFILES 	:= $(filter $(addprefix %.,$(ASM_EXTENSION_LIST)),$(AllFiles))    
-   #in case of assembly s and S extention, duplication will not be detected as make is case sensetive.
-   #we have to remove extintion first
-   ignore:= $(addsuffix .s,$(basename $(tmpASMFILES)))
-   $(eval $(call check_duplication, $(ignore),error))     
-         
-
-
 
    
    SWAllFiles := $(filter-out $(addsuffix /%,$(CMP_SOURCE_DIRS_LIST) $(CMP_LIB_DIR)),$(AllFiles))
@@ -130,12 +118,6 @@
 
 
 
-
-   ifneq ($(FLASHABLE_FILES_NAMES_LIST),)
-      ifeq ($(patsubst %.bat,.bat,$(BIN2FLASHABLE_SCRIPT_PATH)),.bat)
-          BIN2F := c:/windows/system32/cmd.exe /C 
-      endif 
-   endif 
    
    
    

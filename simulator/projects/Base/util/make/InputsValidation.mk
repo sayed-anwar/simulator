@@ -19,7 +19,7 @@ SW_EXCLUDE_FILES_LIST			:= $(sort $(subst \,/,$(strip $(SW_EXCLUDE_FILES_LIST)))
 LD_FILE							:= $(subst \,/,$(strip $(LD_FILE)))
 
 
-ASM_EXTENSION_LIST				:= $(strip $(ASM_EXTENSION_LIST))
+
 LIB_EXTENSION					:= $(strip $(LIB_EXTENSION))
 BIN_EXTENSION					:= $(strip $(BIN_EXTENSION))
 
@@ -30,10 +30,9 @@ BIN_DIR							:= $(patsubst %/,%,$(subst \,/,$(strip $(BIN_DIR))))
 FLASHABLE_DIR					:= $(patsubst %/,%,$(subst \,/,$(strip $(FLASHABLE_DIR))))
 
 
-ASM								:= $(subst \,/,$(strip $(ASM_PATH)))
 CC								:= $(subst \,/,$(strip $(CC_PATH)))
 LD								:= $(subst \,/,$(strip $(LD_PATH)))
-ELF2BIN							:= $(subst \,/,$(strip $(ELF2BIN_PATH)))
+
 
 
 FLASHABLE_FILES_NAMES_LIST		:= $(sort $(strip $(FLASHABLE_FILES_NAMES_LIST)))
@@ -124,10 +123,6 @@ $(eval $(call NOT_LIST_CHECK,$(LD_FILE),LD_FILE))
 ignor := $(call FILE_EXIST, $(LD_FILE),LD_FILE)
 
 
-#ASM_EXTENSION_LIST: Checking variable ASM_EXTENSION_LIST(mandatory- list)
-$(eval $(call NOT_EMPTY_CHECK,$(ASM_EXTENSION_LIST),ASM_EXTENSION_LIST))
-
-
 #LIB_EXTENSION: Checking variable LIB_EXTENSION(mandatory-not list)
 $(eval $(call NOT_EMPTY_CHECK,$(LIB_EXTENSION),LIB_EXTENSION))
 $(eval $(call NOT_LIST_CHECK,$(LIB_EXTENSION),LIB_EXTENSION)) 
@@ -160,10 +155,9 @@ ignor := $(call DIR_EXIST,$(TOOLCHAIN_BIN_DIR),TOOLCHAIN_BIN_DIR)
  
 
 #Checking toolchain(mandatory-not list-file)
-ignor := $(call FILE_EXIST, $(ASM),ASM_PATH)
 ignor := $(call FILE_EXIST, $(CC),CC_PATH)
 ignor := $(call FILE_EXIST, $(LD),LD_PATH)
-ignor := $(call FILE_EXIST, $(ELF2BIN),ELF2BIN_PATH)
+
       
 
 	

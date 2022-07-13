@@ -5,9 +5,8 @@
 #==========================================================================================#
 
 
-ASM_EXTENSION_LIST	 		:= s S
 LIB_EXTENSION				:= a
-BIN_EXTENSION				:= hex
+BIN_EXTENSION				:= exe
 
 #==================================================================================#
 # GENERATED FILES DIR                   	                                       #
@@ -32,14 +31,14 @@ FLASHABLE_DIR				:= $(out_dir)/flashable
 # LD               			:  Path to linker exe								   			#
 # ELF2BIN	      			:  Path to elf to binary converter					   			#
 #===========================================================================================#
-TOOLCHAIN_BIN_DIR     		:= C:\BLSLTools\compilers\hightec\v4.6.3.1\bin\
+TOOLCHAIN_BIN_DIR     		:= C:\msys64\ucrt64\bin\
 
 TOOLCHAIN_BIN_DIR			:= $(subst \,/,$(strip $(TOOLCHAIN_BIN_DIR)))
 
-ASM_PATH           			:= $(TOOLCHAIN_BIN_DIR)/tricore-gcc.exe
-CC_PATH    					:= $(TOOLCHAIN_BIN_DIR)/tricore-gcc.exe
-AR_PATH    					:= $(TOOLCHAIN_BIN_DIR)/tricore-ar.exe
-LD_PATH    					:= $(TOOLCHAIN_BIN_DIR)/tricore-gcc.exe
-ELF2BIN_PATH				:= $(TOOLCHAIN_BIN_DIR)/tricore-objcopy.exe
+
+CC_PATH    					:= $(TOOLCHAIN_BIN_DIR)/g++.exe
+AR_PATH    					:= $(TOOLCHAIN_BIN_DIR)/g++.exe
+LD_PATH    					:= $(TOOLCHAIN_BIN_DIR)/g++.exe
+
 
 
