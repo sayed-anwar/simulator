@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "Base\\srcBase"
+		},
+		{
+			"path": "ECU1\\srcECU1"
+		},
+		{
+			"path": "ECU2\\srcECU2"
+		}
+	],
+	"settings": {}
+}
