@@ -39,7 +39,7 @@ $(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION) : $(SWOBJFILES_CPP) $(SWOBJFILES_C)  $(S
 	@$(CMD)echo "--------------------------------------------------"
 	@$(CMD)echo Generating $(BIN_EXTENSION) file $(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION).....
 	@$(CMD)echo "LinkedFiles:=$(CurrentLinkedFiles) FileReadMarker" > $(DEP_DIR)/LinkedFiles.mk
-	$(DBG)$(LD) -o $(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION) $(SWOBJFILES_CPP) $(SWOBJFILES_C)    
+	$(DBG)$(LD) -o $(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION) $(SWOBJFILES_CPP) $(SWOBJFILES_C) $(SWLIB)    
 	@$(CMD)echo Generation done.
 	
 	

@@ -1,7 +1,7 @@
 
 BIN_NAME					:= baseSW
 
-SW_SOURCE_DIRS_LIST			:= ./srcBase
+SW_SOURCE_DIRS_LIST			:= ./srcBase  ./../ECU1/build\bin  ./../ECU2/build/bin
 
 CMP_SOURCE_DIRS_LIST		:= 
 CMP_LIB_DIR					:= 	

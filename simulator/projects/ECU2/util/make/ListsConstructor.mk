@@ -116,9 +116,8 @@
 
    $(foreach cmp,$(CMP_SOURCE_DIRS_LIST),$(eval $(call get_lists,$(notdir $(cmp)),$(filter $(cmp)/%,$(AllFiles)))))
 
-   SWLIB := $(addprefix -L,$(dir $(SWLIBFILES)))
-   SWLIB := $(SWLIB) $(patsubst %.a,-l%,$(notdir $(SWLIBFILES)))
-$(info $(SWLIB))
+
+
    
    
    
