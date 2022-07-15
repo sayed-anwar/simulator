@@ -6,7 +6,7 @@ SW_SOURCE_DIRS_LIST			:= ./srcECU2
 SW_EXCLUDE_DIRS_LIST		:=
 SW_EXCLUDE_FILES_LIST		:=
    
-cc_mcal_mandatory_opt_lst 	=  -DBUILD_TASKB
+cc_mcal_mandatory_opt_lst 	=  -DBUILD_TASKB -g
 cc_c_opt_lst				= 
 cc_Preprocessor_opt_lst		=
 cc_directory_opt_lst		= 

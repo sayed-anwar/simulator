@@ -14,7 +14,7 @@ BIN2FLASHABLE_LOADER_PATH			:=
 BIN2FLASHABLE_SCRIPT_PATH			:=                 
 BIN2FLASHABLE_OPTIONS_LIST		:=      
 
-cc_mcal_mandatory_opt_lst 	=  
+cc_mcal_mandatory_opt_lst 	=  -g
 cc_c_opt_lst				= 
 cc_Preprocessor_opt_lst		=
 cc_directory_opt_lst		= 

@@ -41,6 +41,7 @@ $(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION) : $(SWOBJFILES_CPP) $(SWOBJFILES_C)  $(S
 	@$(CMD)echo "LinkedFiles:=$(CurrentLinkedFiles) FileReadMarker" > $(DEP_DIR)/LinkedFiles.mk
 	$(DBG)$(LD) -shared -o $(BIN_DIR)/$(BIN_NAME).$(BIN_EXTENSION) $(SWOBJFILES_CPP) $(SWOBJFILES_C) -Wl,--out-implib $(BIN_DIR)/$(BIN_NAME).a   
 	$(DBG)$(CMD)cp $(LIB_INCLUDE_FILE) $(BIN_DIR)
+	$(DBG)$(CMD)cp $(BIN_DIR)/$(BIN_NAME).dll ./../Base/build/bin/$(BIN_NAME).dll
 	@$(CMD)echo Generation done.
 	
 	
