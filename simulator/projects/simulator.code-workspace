@@ -21,6 +21,7 @@
 	"launch": {
 		"version": "0.2.0",
     	"configurations": [
+		
         	{
             	"name": "(gdb) Launch",
             	"type": "cppdbg",
@@ -41,5 +42,73 @@
             	]
         	}
     	]
-	}
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Build Base Project",
+				"type": "shell",
+				"command": "./build.bat",
+				"options": {
+					"cwd": "${workspaceFolder:srcBase}/../util/make"
+				},
+				"problemMatcher": {
+					"base": "$gcc",
+        			"fileLocation": ["relative", "${workspaceFolder:srcBase}/../"],
+				}
+			},
+			{
+				"label": "Clean Base Project",
+				"type": "shell",
+				"command": "./clean.bat",
+				"options": {
+					"cwd": "${workspaceFolder:srcBase}/../util/make"
+				},
+				"problemMatcher": []
+			},
+			{
+				"label": "Build ECU1 Project",
+				"type": "shell",
+				"command": "./build.bat",
+				"options": {
+					"cwd": "${workspaceFolder:srcECU1}/../util/make"
+				},
+				"problemMatcher": {
+					"base": "$gcc",
+        			"fileLocation": ["relative", "${workspaceFolder:srcECU1}/../"],
+				}
+			},
+			{
+				"label": "Clean ECU1 Project",
+				"type": "shell",
+				"command": "./clean.bat",
+				"options": {
+					"cwd": "${workspaceFolder:srcECU1}/../util/make"
+				},
+				"problemMatcher": []
+			},
+			{
+				"label": "Build ECU2 Project",
+				"type": "shell",
+				"command": "./build.bat",
+				"options": {
+					"cwd": "${workspaceFolder:srcECU2}/../util/make"
+				},
+				"problemMatcher": {
+					"base": "$gcc",
+        			"fileLocation": ["relative", "${workspaceFolder:srcECU2}/../"],
+				}
+			},
+			{
+				"label": "Clean ECU2 Project",
+				"type": "shell",
+				"command": "./clean.bat",
+				"options": {
+					"cwd": "${workspaceFolder:srcECU2}/../util/make"
+				},
+				"problemMatcher": []
+			}
+		]
+	},
 }
